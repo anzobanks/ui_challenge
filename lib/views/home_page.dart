@@ -1,9 +1,13 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:get/get.dart';
 
+import '../controllers/estate_controller.dart';
 import '../themes/app_colors.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/property_tile.dart';
@@ -14,6 +18,8 @@ class HomePage extends StatelessWidget {
     'Other',
     'Home',
   ];
+  final estateController = Get.put(EstateController());
+
   final PageController pageViewController;
   final searchController = TextEditingController();
 
@@ -29,7 +35,7 @@ class HomePage extends StatelessWidget {
           TextField(
             controller: searchController,
             onTap: () => pageViewController.nextPage(
-                duration: 1000.milliseconds, curve: Curves.decelerate),
+                duration: Duration(milliseconds: 1000), curve: Curves.decelerate),
             decoration: InputDecoration(
                 hintText: 'Search Here...',
                 filled: true,
@@ -47,8 +53,8 @@ class HomePage extends StatelessWidget {
             height: 110,
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             decoration: BoxDecoration(
-                image: const DecorationImage(
-                    image: AssetImage('assets/home1.jpg'), fit: BoxFit.cover),
+                image: DecorationImage(
+                    image: CachedNetworkImageProvider(estateController.estateList[Random().nextInt(estateController.estateList.length)].images[0]), fit: BoxFit.cover),
                 color: Colors.grey.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(15)),
             child: Column(
@@ -85,7 +91,7 @@ class HomePage extends StatelessWidget {
                           ),
                     ),
                     CustomText(
-                      text: '04 January 2024',
+                      text: '${DateTime.now().day} January 2024',
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             fontWeight: FontWeight.w400,
                             color: Colors.white,
@@ -95,28 +101,32 @@ class HomePage extends StatelessWidget {
                 )
               ],
             ),
-          ),
+          ).animate()
+                .flipH(
+                    //  begin: 0.2,
+                    delay: Duration(milliseconds:2000),
+                    duration: 1000.ms),
           const SizedBox(
             height: 20,
           ),
           Container(
             height: 190.0,
             child: FlutterCarousel(
-              options: CarouselOptions(
-                  viewportFraction: 1,
-                  autoPlay: true,
-                  autoPlayAnimationDuration: 1000.milliseconds,
-                  autoPlayCurve: Curves.decelerate,
-                  autoPlayInterval: 10.seconds,
-                  height: 190.0,
-                  showIndicator: false,
-                  enlargeCenterPage: true
-                  // slideIndicator: CircularSlideIndicator(),
-                  ),
-              items: [1, 2, 3, 4, 5].map((i) {
-                return PropertyTile();
-              }).toList(),
-            ),
+                  options: CarouselOptions(
+                      viewportFraction: 1,
+                      autoPlay: true,
+                      autoPlayAnimationDuration:Duration(milliseconds: 1000),
+                      autoPlayCurve: Curves.decelerate,
+                      autoPlayInterval: Duration(seconds: 10),
+                      height: 190.0,
+                      showIndicator: false,
+                      enlargeCenterPage: true
+                      // slideIndicator: CircularSlideIndicator(),
+                      ),
+                  items: estateController.estateList.map((estate) {
+                    return PropertyTile(estate: estate,);
+                  }).toList(),
+            )  
           ),
           Padding(
             padding: const EdgeInsets.only(top: 15, bottom: 15),
@@ -164,11 +174,13 @@ class HomePage extends StatelessWidget {
           ),
           Flexible(
             child: ListView.separated(
-                itemBuilder: (context, index) => PropertyTile(),
+                itemBuilder: (context, index) => PropertyTile(
+                    estate:
+                        estateController.estateList.reversed.toList()[index]),
                 separatorBuilder: (context, index) => SizedBox(
                       height: 8,
                     ),
-                itemCount: 10),
+                itemCount: estateController.estateList.length),
           )
         ],
       ),

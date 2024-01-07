@@ -1,27 +1,29 @@
+import 'dart:math';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:heyflutter_challenge_1/models/estate.dart';
 import 'package:heyflutter_challenge_1/themes/app_colors.dart';
 
 // import 'package:latlong2/latlong.dart';
 import 'package:readmore/readmore.dart';
 
+import '../controllers/estate_controller.dart';
 import '../widgets/custom_text.dart';
 
 class DetailsPage extends StatelessWidget {
-  const DetailsPage({super.key});
+  DetailsPage({super.key, required this.estate});
 
-  // final Marker marker = Marker(
-  //   markerId: markerId,
-  //   position: LatLng(
-
-  //   ),
-
-  // );
+  Estate estate;
+  final estateController = Get.put(EstateController());
 
   @override
   Widget build(BuildContext context) {
+    RxString selectedImage = estate.images[0].obs;
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -30,60 +32,72 @@ class DetailsPage extends StatelessWidget {
         width: width,
         child: Column(
           children: [
-            Container(
-              height: 350,
-              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/home1.jpg'),
-                      fit: BoxFit.cover)),
-              child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: InkWell(
-                    onTap: () => Get.back(),
-
-                      child: CircleAvatar(
-                        backgroundColor: AppColors.bg,
-                        child: Icon(Icons.arrow_back_sharp),
+            Hero(
+              tag: estate.images[0],
+              child: Obx(() {
+                return Container(
+                  height: 350,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image:
+                              CachedNetworkImageProvider(selectedImage.value),
+                          fit: BoxFit.cover)),
+                  child: Column(
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: InkWell(
+                          onTap: () => Get.back(),
+                          child: CircleAvatar(
+                            backgroundColor: AppColors.bg,
+                            child: Icon(Icons.arrow_back_sharp),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-           SizedBox(height: 30,),
-
-                  Expanded(
-                    child: Row(
-                      children: [
-                  Spacer(),
-
-                        Container(
-                          width: 55,
-                          alignment: Alignment.centerRight,
-                          child: ListView.separated(
-                              scrollDirection: Axis.vertical,
-                              itemBuilder: (context, index) => Container(
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Spacer(),
+                            Container(
+                              width: 55,
+                              alignment: Alignment.centerRight,
+                              child: ListView.separated(
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, index) => InkWell(
+                                  onTap: () => selectedImage.value =
+                                      estate.images[index],
+                                  child: Container(
                                     height: 55,
                                     width: 55,
                                     decoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        //          image: DecorationImage(
-                                        // image: AssetImage('assets/home1.jpg'),
-                                        // fit: BoxFit.cover),
-                                        borderRadius: BorderRadius.circular(10)),
+                                        image: DecorationImage(
+                                            image: CachedNetworkImageProvider(
+                                                estate.images[index]),
+                                            fit: BoxFit.cover),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                   ),
-                              separatorBuilder: (context, index) => SizedBox(
-                                    height: 10,
-                                  ),
-                              itemCount: 3),
+                                ),
+                                separatorBuilder: (context, index) => SizedBox(
+                                  height: 8,
+                                ),
+                                itemCount: estate.images.length,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                      )
+                    ],
+                  ),
+                );
+              }),
             ),
             Expanded(
               child: Container(
@@ -93,33 +107,49 @@ class DetailsPage extends StatelessWidget {
                   child: ListView(
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const RatingStars(
+                      RatingStars(
                         maxValueVisibility: false,
                         valueLabelVisibility: false,
                         starSpacing: 3,
-                        value: 4,
+                        value: estate.rate,
                         starOffColor: Color(0xFFf9d59b),
                         starColor: Color(0xFFf8b958),
+                      ),
+                      SizedBox(
+                        height: 8,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomText(
-                            text: '123 Julinun Zahra',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(
-                                    color: AppColors.black,
-                                    fontSize: 23,
-                                    fontWeight: FontWeight.w800),
+                          Flexible(
+                            child: CustomText(
+                              text: estate.title,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                      color: AppColors.black,
+                                      fontSize: 23,
+                                      fontWeight: FontWeight.w800),
+                            ),
                           ),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.favorite_border,
-                                size: 30,
-                              ))
+                          Obx(
+                            () {
+                              return IconButton(
+                                                        onPressed: () {
+                                                          estateController.makeFavorite(estateController.estateList.indexWhere((element) => estate.id==element.id), !estateController.estateList[estateController.estateList.indexWhere((element) => estate.id==element.id)].isFavorite.value );
+                                                        },
+                                                        icon: estate.isFavorite == false ?Icon(
+                                                          Icons.favorite_border,
+                                                          size: 30,
+                                                        ): Icon(
+                                        Icons.favorite,
+                                        size: 30,
+color: Colors.red,
+                                      ));
+                            }
+                          )
+                          
                         ],
                       ),
                       Padding(
@@ -135,7 +165,7 @@ class DetailsPage extends StatelessWidget {
                         ),
                       ),
                       ReadMoreText(
-                        'Velit cupidatat laborum consequat ut sit voluptate enim.Dolor eu incididunt consectetur mollit. Elit mollit deserunt non sint aute non. Veniam anim cillum velit minim veniam. Occaecat ad tempor veniam do cillum proident non est do excepteur. Esse do in adipisicing fugiat Lorem culpa..',
+                        estate.description,
                         trimLines: 3,
                         delimiter: ' ',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -157,7 +187,7 @@ class DetailsPage extends StatelessWidget {
                                 ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        padding: EdgeInsets.symmetric(vertical: 10),
                         child: Container(
                           height: 150,
                           clipBehavior: Clip.antiAlias,
@@ -169,14 +199,14 @@ class DetailsPage extends StatelessWidget {
                             mapToolbarEnabled: false,
                             mapType: MapType.normal,
                             markers: {
-                              const Marker(
+                              Marker(
                                   markerId: MarkerId('1'),
                                   position: LatLng(
-                                      6.354597225468105, 2.3198250671766028))
+                                      estate.location.lat, estate.location.lng))
                             },
-                            initialCameraPosition: const CameraPosition(
+                            initialCameraPosition: CameraPosition(
                                 target: LatLng(
-                                    6.354597225468105, 2.3198250671766028),
+                                    estate.location.lat, estate.location.lng),
                                 bearing: 192.8334901395799,
                                 tilt: 59.440717697143555,
                                 zoom: 13),
@@ -209,7 +239,7 @@ class DetailsPage extends StatelessWidget {
                       color: AppColors.black, fontWeight: FontWeight.w500),
                 ),
                 CustomText(
-                  text: '\$ 320',
+                  text: '\$ ${estate.price}',
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       fontSize: 25,
                       color: AppColors.black,

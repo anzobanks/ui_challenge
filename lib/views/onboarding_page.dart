@@ -5,6 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:heyflutter_challenge_1/themes/app_colors.dart';
 
+import '../controllers/estate_controller.dart';
 import '../widgets/custom_text.dart';
 import 'main_page.dart';
 
@@ -13,7 +14,7 @@ class OnBoardingPage extends StatelessWidget {
   Color main2 = Color(0xFFf2a612);
   Color main1 = Color(0xFF2eb1b7);
   Color main3 = Color(0xFF949495);
-
+  final estateController = Get.put(EstateController());
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -28,7 +29,6 @@ class OnBoardingPage extends StatelessWidget {
               'assets/logo.png',
               height: 35,
             ),
-         
             Text.rich(
               TextSpan(children: [
                 TextSpan(text: 'Home', style: TextStyle(color: main1)),
@@ -42,10 +42,10 @@ class OnBoardingPage extends StatelessWidget {
       body: Container(
         height: height,
         width: width,
-        padding: EdgeInsets.only(top:25,left:25,right: 25),
+        padding: EdgeInsets.only(top: 25, left: 25, right: 25),
         decoration: BoxDecoration(
-            color: AppColors.bg,
-         ),
+          color: AppColors.bg,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -73,12 +73,16 @@ class OnBoardingPage extends StatelessWidget {
                   .textTheme
                   .bodyMedium!
                   .copyWith(color: main3, fontSize: 22),
-            )   .animate()
-                          .fadeIn(
-                              //  begin: 0.2,
-                              delay: Duration(milliseconds: 2000),
+            )
+                .animate()
+                .fadeIn(
+                    //  begin: 0.2,
+                    delay: Duration(milliseconds: 2000),
                     duration: 1000.ms)
-                          .slideX(delay: Duration(milliseconds: 2000), duration: 1000.ms,begin: 3),
+                .slideX(
+                    delay: Duration(milliseconds: 2000),
+                    duration: 1000.ms,
+                    begin: 3),
             SizedBox(
               height: 10,
             ),
@@ -88,7 +92,8 @@ class OnBoardingPage extends StatelessWidget {
                   .textTheme
                   .bodyMedium!
                   .copyWith(color: main3, fontSize: 22),
-            )   .animate()
+            )
+                .animate()
                 .fadeIn(
                     //  begin: 0.2,
                     delay: Duration(milliseconds: 3000),
@@ -99,7 +104,10 @@ class OnBoardingPage extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.off(()=>MainPage(),transition: Transition.rightToLeftWithFade,duration:2000.ms);
+               
+                Get.off(() => MainPage(),
+                    transition: Transition.rightToLeftWithFade,
+                    duration: 2000.ms);
               },
               child: Container(
                 width: 100,
@@ -123,22 +131,20 @@ class OnBoardingPage extends StatelessWidget {
                       )
                     ]),
               ),
-            ) .animate()
-                .fadeIn(
-                    //  begin: 0.2,
-                    delay: Duration(milliseconds:6000),
-                    duration: 2000.ms),
-           
+            ).animate().fadeIn(
+                //  begin: 0.2,
+                delay: Duration(milliseconds: 6000),
+                duration: 2000.ms),
             Expanded(
-              child: Container(decoration: BoxDecoration(
-                   image: DecorationImage(
+              child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
                         alignment: Alignment.bottomCenter,
-                        image: 
-                        ResizeImage(
-                          AssetImage('assets/heyflutterchallenge1.png'),
-                          width:900,height:900)
-                          )
-              ),)
+                        image: ResizeImage(
+                            AssetImage('assets/heyflutterchallenge1.png'),
+                            width: 900,
+                            height: 900))),
+              )
                   .animate()
                   .fadeIn(duration: 2000.ms, delay: 4000.ms)
                   .slideY(delay: 4000.ms, begin: 2, duration: 2000.ms),
