@@ -54,7 +54,7 @@ class OnBoardingPage extends StatelessWidget {
                 TextSpan(text: 'Looking ', style: TextStyle(color: main1)),
                 TextSpan(text: 'for an ', style: TextStyle(color: main2)),
                 TextSpan(
-                    text: 'elegant house this is the place', style: TextStyle())
+                    text: 'elegant house ? This is the place', style: TextStyle())
               ]),
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 40),
             )

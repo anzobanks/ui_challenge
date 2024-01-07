@@ -50,12 +50,12 @@ class DetailsPage extends StatelessWidget {
                     children: [
                       Align(
                         alignment: Alignment.topLeft,
-                        child: InkWell(
+                        child: CircleAvatar(
+                          backgroundColor: AppColors.bg,
+                          child: InkWell(
                           onTap: () => Get.back(),
-                          child: CircleAvatar(
-                            backgroundColor: AppColors.bg,
-                            child: Icon(Icons.arrow_back_sharp),
-                          ),
+                            
+                            child: Icon(Icons.arrow_back_sharp)),
                         ),
                       ),
                       SizedBox(

@@ -13,11 +13,16 @@ class PropertyTile extends StatelessWidget {
 Estate estate;
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => Get.to(() => DetailsPage(estate: estate,),
-          transition: Transition.rightToLeftWithFade, duration: 2000.ms),
+    return GestureDetector(
+       onTap: () => Get.to(
+          () => DetailsPage(
+                estate: estate,
+              ),
+          transition: Transition.rightToLeftWithFade,
+          duration: 2000.ms),
       child: Hero(
-        tag: estate.images[0],
+      tag: estate.images[0],
+
         child: Container(
             height: 200,
             alignment: AlignmentDirectional.bottomEnd,
