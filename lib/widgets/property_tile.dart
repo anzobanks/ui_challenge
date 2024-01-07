@@ -34,7 +34,7 @@ Estate estate;
                 borderRadius: BorderRadius.circular(15)),
             child: BlurryContainer(
               height: 80,
-              blur: 1,
+              blur: 2,
               borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(15),
                   bottomRight: Radius.circular(15)),
