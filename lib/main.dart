@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:heyflutter_challenge_1/views/onboarding_page.dart';
 
 import 'themes/app_themes.dart';
 
 void main() {
+    WidgetsFlutterBinding.ensureInitialized();
+  Animate.restartOnHotReload = true;
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(const MyApp());
 }
 

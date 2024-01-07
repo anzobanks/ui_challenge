@@ -42,13 +42,10 @@ class OnBoardingPage extends StatelessWidget {
       body: Container(
         height: height,
         width: width,
-        padding: EdgeInsets.all(25),
+        padding: EdgeInsets.only(top:25,left:25,right: 25),
         decoration: BoxDecoration(
             color: AppColors.bg,
-            image: DecorationImage(
-                alignment: Alignment.bottomCenter,
-                image: AssetImage(
-                    'assets/heyflutterchallenge1.png'))),
+         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -60,7 +57,13 @@ class OnBoardingPage extends StatelessWidget {
                     text: 'elegant house this is the place', style: TextStyle())
               ]),
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 40),
-            ),
+            )
+                .animate()
+                .fadeIn(
+                    //  begin: 0.2,
+                    delay: Duration(milliseconds: 1000),
+                    duration: 1000.ms)
+                .slideX(delay: Duration(milliseconds: 1000), duration: 1000.ms),
             SizedBox(
               height: 20,
             ),
@@ -70,7 +73,12 @@ class OnBoardingPage extends StatelessWidget {
                   .textTheme
                   .bodyMedium!
                   .copyWith(color: main3, fontSize: 22),
-            ),
+            )   .animate()
+                          .fadeIn(
+                              //  begin: 0.2,
+                              delay: Duration(milliseconds: 2000),
+                    duration: 1000.ms)
+                          .slideX(delay: Duration(milliseconds: 2000), duration: 1000.ms,begin: 3),
             SizedBox(
               height: 10,
             ),
@@ -80,7 +88,12 @@ class OnBoardingPage extends StatelessWidget {
                   .textTheme
                   .bodyMedium!
                   .copyWith(color: main3, fontSize: 22),
-            ),
+            )   .animate()
+                .fadeIn(
+                    //  begin: 0.2,
+                    delay: Duration(milliseconds: 3000),
+                    duration: 1000.ms)
+                .slideX(delay: Duration(milliseconds: 3000), duration: 1000.ms),
             SizedBox(
               height: 20,
             ),
@@ -104,11 +117,31 @@ class OnBoardingPage extends StatelessWidget {
                             ),
                       ),
                       Icon(
-                        Icons.arrow_right_alt_sharp,
+                        Icons.arrow_right_alt_outlined,
                         color: Colors.white,
+                        size: 30,
                       )
                     ]),
               ),
+            ) .animate()
+                .fadeIn(
+                    //  begin: 0.2,
+                    delay: Duration(milliseconds:6000),
+                    duration: 2000.ms),
+           
+            Expanded(
+              child: Container(decoration: BoxDecoration(
+                   image: DecorationImage(
+                        alignment: Alignment.bottomCenter,
+                        image: 
+                        ResizeImage(
+                          AssetImage('assets/heyflutterchallenge1.png'),
+                          width:900,height:900)
+                          )
+              ),)
+                  .animate()
+                  .fadeIn(duration: 2000.ms, delay: 4000.ms)
+                  .slideY(delay: 4000.ms, begin: 2, duration: 2000.ms),
             )
           ],
         ),

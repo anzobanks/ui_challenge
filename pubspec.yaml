@@ -38,6 +38,14 @@ dependencies:
   get: ^4.6.6
   flutter_animate: ^4.3.0
   blurrycontainer: ^1.0.2
+  flutter_rating_stars: ^1.0.3+4
+  readmore: ^2.2.0
+  cached_network_image: ^3.3.1
+  google_maps_flutter: ^2.5.1
+  flutter_switch: ^0.3.2
+  flutter_carousel_widget: ^2.2.0
+
+  
 
 dev_dependencies:
   flutter_test:

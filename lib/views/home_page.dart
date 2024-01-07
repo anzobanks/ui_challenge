@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:get/get.dart';
 
 import '../themes/app_colors.dart';
@@ -8,11 +9,12 @@ import '../widgets/custom_text.dart';
 import '../widgets/property_tile.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
+  HomePage({required this.pageViewController});
   final List<String> items = [
     'Other',
     'Home',
   ];
+  final PageController pageViewController;
   final searchController = TextEditingController();
 
   @override
@@ -26,6 +28,8 @@ class HomePage extends StatelessWidget {
         children: [
           TextField(
             controller: searchController,
+            onTap: () => pageViewController.nextPage(
+                duration: 1000.milliseconds, curve: Curves.decelerate),
             decoration: InputDecoration(
                 hintText: 'Search Here...',
                 filled: true,
@@ -95,9 +99,27 @@ class HomePage extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          PropertyTile(),
+          Container(
+            height: 190.0,
+            child: FlutterCarousel(
+              options: CarouselOptions(
+                  viewportFraction: 1,
+                  autoPlay: true,
+                  autoPlayAnimationDuration: 1000.milliseconds,
+                  autoPlayCurve: Curves.decelerate,
+                  autoPlayInterval: 10.seconds,
+                  height: 190.0,
+                  showIndicator: false,
+                  enlargeCenterPage: true
+                  // slideIndicator: CircularSlideIndicator(),
+                  ),
+              items: [1, 2, 3, 4, 5].map((i) {
+                return PropertyTile();
+              }).toList(),
+            ),
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15),
+            padding: const EdgeInsets.only(top: 15, bottom: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -110,8 +132,8 @@ class HomePage extends StatelessWidget {
                 ),
                 Obx(() {
                   return DropdownButton(
-                    dropdownColor: AppColors.bg,
-                    focusColor: AppColors.bg ,
+                      dropdownColor: AppColors.bg,
+                      focusColor: AppColors.bg,
                       icon: Icon(
                         Icons.keyboard_arrow_down_rounded,
                         color: AppColors.main1,
@@ -140,11 +162,16 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          PropertyTile(),
-
+          Flexible(
+            child: ListView.separated(
+                itemBuilder: (context, index) => PropertyTile(),
+                separatorBuilder: (context, index) => SizedBox(
+                      height: 8,
+                    ),
+                itemCount: 10),
+          )
         ],
       ),
     );
   }
 }
-
