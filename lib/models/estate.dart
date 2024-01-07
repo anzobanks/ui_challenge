@@ -12,14 +12,13 @@ class Estate {
   double rate;
   double area;
   Address location;
-RxBool isFavorite;
+  RxBool isFavorite;
   Estate({
     required this.id,
     required this.title,
     required this.description,
     required this.price,
     required this.isFavorite,
-
     required this.rate,
     required this.images,
     required this.bedrooms,
@@ -121,4 +120,15 @@ List<String> image13 = [
   'https://photos.zillowstatic.com/fp/300a44c10441ffb1f3e5ef5fc550227e-cc_ft_768.webp',
   'https://photos.zillowstatic.com/fp/2ca5158d9086856fe09065b3198a89e5-cc_ft_768.webp',
   'https://photos.zillowstatic.com/fp/d217a4fe9b815353e4855f6783501e29-cc_ft_768.webp',
+];
+
+List<String> image14 = [
+  'https://photos.zillowstatic.com/fp/c7d6c175376929d7cd2504318d9c03ba-cc_ft_768.webp',
+  'https://photos.zillowstatic.com/fp/2c92f90c594b2129c92f314c0c40be92-cc_ft_768.webp',
+  'https://photos.zillowstatic.com/fp/d63d146b5b06cec4aeb830e51a697711-cc_ft_1536.webp',
+  'https://photos.zillowstatic.com/fp/45e34571bdfbc20bbe187a0eaa1f2e73-cc_ft_1536.webp'
+];
+
+List<String> image15 = [
+  'https://photos.zillowstatic.com/fp/32bffacef95243dc9de8b45589b7b943-cc_ft_768.webp','https://photos.zillowstatic.com/fp/91c8a294bd1d4617b8b9b6349c3e01e6-cc_ft_768.webp','https://photos.zillowstatic.com/fp/b787802fd459779b72e5d27f3a17d695-cc_ft_768.webp','https://photos.zillowstatic.com/fp/81b88d60ba6e9647813abe8463932978-cc_ft_768.webp'
 ];

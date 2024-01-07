@@ -187,6 +187,116 @@ class EstateController extends GetxController {
         lng: -43.1729,
       ),
     ),
+     Estate(
+      id: "11",
+      title: "Chroma Apartments",
+      description:
+          "Illuminate your life at Chroma Apartments in Highlands Ranch, where modern spaces complement a full spectrum of amenities for active lifestyles. ",
+      price: Random().nextInt(1000) + 300,
+      rate: Random().nextDouble() * 5,
+      isFavorite: false.obs,
+      images: image11,
+      bedrooms: 3,
+      bathrooms: 2,
+      area: 1500.0,
+      location: Address(
+        address: "1360 Martha St, Highlands Ranch, CO 80129",
+        lat: -22.9068,
+        lng: -49.1729,
+      ),
+    ),
+      Estate(
+      id: "12",
+      title: "AMLI Broadway Park",
+      description:
+          " Near the Design District, University of Denver and more, residents will enjoy a premium location near the area's main drag, along with high-end features available right at home. ",
+      price: Random().nextInt(1000) + 300,
+      rate: Random().nextDouble() * 5,
+      isFavorite: false.obs,
+      images: image12,
+      bedrooms: 3,
+      bathrooms: 2,
+      area: 1500.0,
+      location: Address(
+        address: "357 S Bannock St, Denver, CO 80223",
+        lat: -29.9068,
+        lng: -43.1729,
+      ),
+    ),
+       Estate(
+      id: "13",
+      title: "Dayton Station",
+      description:
+          " Welcome to Dayton Station Luxury Townhomes, a premier residential community in the booming economical surrounds of DTC. ",
+      price: Random().nextInt(1000) + 300,
+      rate: Random().nextDouble() * 5,
+      isFavorite: false.obs,
+      images: image13,
+      bedrooms: 3,
+      bathrooms: 2,
+      area: 1500.0,
+      location: Address(
+        address: "3899 S Dallas St, Aurora, CO 80014",
+        lat: -32.9068,
+        lng: -43.1729,
+      ),
+    ),
+
+    Estate(
+      id: "14",
+      title: "Sterling Boulder Apartments",
+      description:
+          "Looking for a stylish pad with incredible amenities that has the convenience of being close to campus AND won't break the bank? Sterling's got you.",
+      price: Random().nextInt(1000) + 300,
+      rate: Random().nextDouble() * 5,
+      isFavorite: false.obs,
+      images: image14,
+      bedrooms: 3,
+      bathrooms: 2,
+      area: 1500.0,
+      location: Address(
+        address: "2985 E Aurora Ave, Boulder, CO 80303",
+        lat: -22.9068,
+        lng: -63.1729,
+      ),
+    ),
+
+    Estate(
+      id: "14",
+      title: "Sterling Boulder Apartments",
+      description:
+          "Looking for a stylish pad with incredible amenities that has the convenience of being close to campus AND won't break the bank? Sterling's got you.",
+      price: Random().nextInt(1000) + 300,
+      rate: Random().nextDouble() * 5,
+      isFavorite: false.obs,
+      images: image14,
+      bedrooms: 3,
+      bathrooms: 2,
+      area: 1500.0,
+      location: Address(
+        address: "2985 E Aurora Ave, Boulder, CO 80303",
+        lat: -42.9068,
+        lng: -13.1729,
+      ),
+    ),
+     Estate(
+      id: "15",
+      title: "Gardens at Cherry Creek",
+      description:
+          "Our residents enjoy unparalleled access to some of the best upscale shopping and delicious dining that Denver has to offer and are easy walking distance from the vibrant cocktail bars and eclectic boutiques of Cherry Creek.",
+      price: Random().nextInt(1000) + 300,
+      rate: Random().nextDouble() * 5,
+      isFavorite: false.obs,
+      images: image15,
+      bedrooms: 3,
+      bathrooms: 2,
+      area: 1500.0,
+      location: Address(
+        address: "225 S Harrison St, Denver, CO 80209",
+        lat: -82.9068,
+        lng: -13.1729,
+      ),
+    ),
   ];
 
   makeFavorite(int index, bool value) {
